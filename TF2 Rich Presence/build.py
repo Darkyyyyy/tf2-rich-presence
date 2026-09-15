@@ -130,6 +130,7 @@ def main(version_num='v2.2.4'):
         print("Copied", shutil.copy('requirements.txt', github_repo_path))
         print("Copied", shutil.copy('pycs_to_delete.txt', Path(f'{github_repo_path}/TF2 Rich Presence')))
         print("Copied", shutil.copy('TF2RP.iss', Path(f'{github_repo_path}/TF2 Rich Presence')))
+        print("Copied", shutil.copy('phoenix.bmp', Path(f'{github_repo_path}/TF2 Rich Presence')))
         print("Copied", shutil.copy(f'{interpreter_name}.zip', Path(f'{github_repo_path}/TF2 Rich Presence')))
 
         copy_dir('gui_images', Path(f'{github_repo_path}/TF2 Rich Presence/gui_images'))

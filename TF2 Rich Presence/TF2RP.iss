@@ -26,7 +26,7 @@ PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=.
 OutputBaseFilename=TF2RichPresence_v{#MyAppVersion}_setup
 SetupIconFile=tf2_logo_blurple.ico
-Compression=lzma
+Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
 WizardImageFile=tf2_logo_blurple_installer.bmp
@@ -59,6 +59,7 @@ Source: "TF2 Rich Presence v{#MyAppVersion}\Changelogs.html"; DestDir: "{app}"; 
 Source: "TF2 Rich Presence v{#MyAppVersion}\TF2 Rich Presence.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "TF2 Rich Presence v{#MyAppVersion}\resources\*"; DestDir: "{app}\resources"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "TF2 Rich Presence v{#MyAppVersion}\locales\*"; DestDir: "{app}\locales"; Flags: ignoreversion
+Source: "phoenix.bmp"; DestDir: "{app}"; Flags: ignoreversion dontcopy
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -74,3 +75,21 @@ Type: filesandordirs; Name: "{app}\resources\python-*-embed-amd64"
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[Code]
+procedure InitializeWizard;
+var
+  Page: TWizardPage;
+  BitmapImage: TBitmapImage;
+
+begin
+  Page := CreateCustomPage(wpSelectTasks, 'Look at this cat', '');
+  ExtractTemporaryFile('phoenix.bmp');
+  BitmapImage := TBitmapImage.Create(Page);    
+  
+  with BitmapImage do begin
+    Bitmap.LoadFromFile(ExpandConstant('{tmp}') + '\phoenix.bmp');
+    AutoSize := True;
+    Parent := Page.Surface;
+  end;
+end;
